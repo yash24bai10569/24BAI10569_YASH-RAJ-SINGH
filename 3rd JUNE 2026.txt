@@ -1,0 +1,350 @@
+Create, Read, Update, Delete in MongoDB import com.mongodb.client.*; import com.mongodb.client.model.Filters; import com.mongodb.client.model.Updates; import org.bson.Document; 
+ 
+public class MongoCRUDExample { 
+ 
+    public static void main(String[] args) { 
+ 
+        // Connect to MongoDB 
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017"); 
+ 
+        // Access database 
+        MongoDatabase database = mongoClient.getDatabase("CollegeDB"); 
+ 
+        // Access collection 
+        MongoCollection<Document> collection =                 database.getCollection("Students"); 
+ 
+        // ========================== 
+        // CREATE (Insert) 
+        // ========================== 
+        Document student = new Document("id", 101) 
+                .append("name", "John") 
+                .append("department", "CSE") 
+                .append("cgpa", 8.7); 
+ 
+        collection.insertOne(student); 
+        System.out.println("Document Inserted Successfully"); 
+ 
+        // ========================== 
+        // READ (Find) 
+        // ========================== 
+        System.out.println("\nStudent Records:"); 
+ 
+        FindIterable<Document> students = collection.find(); 
+ 
+        for (Document doc : students) { 
+            System.out.println(doc.toJson()); 
+        } 
+ 
+        // ========================== 
+        // UPDATE 
+        // ========================== 
+        collection.updateOne( 
+                Filters.eq("id", 101), 
+                Updates.set("cgpa", 9.2) 
+        ); 
+ 
+        System.out.println("\nDocument Updated Successfully"); 
+ 
+        // ========================== 
+        // READ Updated Record 
+        // ==========================         Document updatedStudent = 
+                collection.find(Filters.eq("id", 101)).first(); 
+ 
+        System.out.println("\nUpdated Record:"); 
+        System.out.println(updatedStudent.toJson()); 
+ 
+        // ========================== 
+        // DELETE 
+        // ==========================         collection.deleteOne(Filters.eq("id", 101)); 
+ 
+        System.out.println("\nDocument Deleted Successfully"); 
+ 
+        // Close connection 
+        mongoClient.close(); 
+    } 
+} 
+
+OUTPUT 
+
+Document Inserted Successfully 
+ 
+Student Records: 
+{"_id":{"$oid":"..."},"id":101,"name":"John","department":"CSE","cgpa":8.7} 
+ 
+Document Updated Successfully 
+ 
+Updated Record: 
+{"_id":{"$oid":"..."},"id":101,"name":"John","department":"CSE","cgpa":9.2} 
+ 
+Document Deleted Successfully 
+
+
+Create, Read, Update, Delete in MongoDB import com.mongodb.client.*; import com.mongodb.client.model.Filters; import com.mongodb.client.model.Updates; import org.bson.Document; 
+ 
+public class MongoCRUDExample { 
+ 
+    public static void main(String[] args) { 
+ 
+        // Connect to MongoDB 
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017"); 
+ 
+        // Access database 
+        MongoDatabase database = mongoClient.getDatabase("CollegeDB"); 
+ 
+        // Access collection 
+        MongoCollection<Document> collection =                 database.getCollection("Students"); 
+ 
+        // ========================== 
+        // CREATE (Insert) 
+        // ========================== 
+        collection.insertMany(java.util.Arrays.asList(     
+         new Document("id", 1).append("name", "Alice"), 
+         new Document("id", 2).append("name", "Bob"),
+         new Document("id", 3).append("name", "Charlie") ));
+
+        System.out.println("Document Inserted Successfully"); 
+ 
+        // ========================== 
+        // READ (Find) 
+        // ========================== 
+        System.out.println("\nStudent Records:"); 
+ 
+        FindIterable<Document> students = collection.find(); 
+ 
+        for (Document doc : students) { 
+            System.out.println(doc.toJson()); 
+        } 
+ 
+        // ========================== 
+        // UPDATE 
+        // ========================== 
+        collection.updateOne( 
+                Filters.eq("id", 101), 
+                Updates.set("cgpa", 9.2) 
+        ); 
+ 
+        System.out.println("\nDocument Updated Successfully"); 
+ 
+        // ========================== 
+        // READ Updated Record 
+        // ==========================         Document updatedStudent = 
+                collection.find(Filters.eq("id", 101)).first(); 
+ 
+        System.out.println("\nUpdated Record:"); 
+        System.out.println(updatedStudent.toJson()); 
+ 
+        // ========================== 
+        // DELETE 
+        // ==========================         collection.deleteOne(Filters.eq("id", 101)); 
+ 
+        System.out.println("\nDocument Deleted Successfully"); 
+ 
+        // Close connection 
+        mongoClient.close(); 
+    } 
+} 
+
+
+
+Create, Read, Update, Delete in MongoDB import com.mongodb.client.*; import com.mongodb.client.model.Filters; import com.mongodb.client.model.Updates; import org.bson.Document; 
+ 
+public class MongoCRUDExample { 
+ 
+    public static void main(String[] args) { 
+ 
+        // Connect to MongoDB 
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017"); 
+ 
+        // Access database 
+        MongoDatabase database = mongoClient.getDatabase("CollegeDB"); 
+ 
+        // Access collection 
+        MongoCollection<Document> collection =                 database.getCollection("Students"); 
+ 
+        // ========================== 
+        // CREATE (Insert) 
+        // ========================== 
+        Document student = new Document("id", 101) 
+                .append("name", "John") 
+                .append("department", "CSE") 
+                .append("cgpa", 8.7); 
+ 
+        collection.insertOne(student); 
+        System.out.println("Document Inserted Successfully"); 
+ 
+        // ========================== 
+        // READ (Find) 
+        // ========================== 
+        System.out.println("\nStudent Records:"); 
+ 
+        Document doc = collection.find(Filters.eq("id", 2)).first(); 
+        System.out.println(doc.toJson());  
+        } 
+ 
+        // ========================== 
+        // UPDATE 
+        // ========================== 
+        collection.updateOne( 
+                Filters.eq("id", 101), 
+                Updates.set("cgpa", 9.2) 
+        ); 
+ 
+        System.out.println("\nDocument Updated Successfully"); 
+ 
+        // ========================== 
+        // READ Updated Record 
+        // ==========================         Document updatedStudent = 
+                collection.find(Filters.eq("id", 101)).first(); 
+ 
+        System.out.println("\nUpdated Record:"); 
+        System.out.println(updatedStudent.toJson()); 
+ 
+        // ========================== 
+        // DELETE 
+        // ==========================         collection.deleteOne(Filters.eq("id", 101)); 
+ 
+        System.out.println("\nDocument Deleted Successfully"); 
+ 
+        // Close connection 
+        mongoClient.close(); 
+    } 
+} 
+
+
+
+Create, Read, Update, Delete in MongoDB import com.mongodb.client.*; import com.mongodb.client.model.Filters; import com.mongodb.client.model.Updates; import org.bson.Document; 
+ 
+public class MongoCRUDExample { 
+ 
+    public static void main(String[] args) { 
+ 
+        // Connect to MongoDB 
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017"); 
+ 
+        // Access database 
+        MongoDatabase database = mongoClient.getDatabase("CollegeDB"); 
+ 
+        // Access collection 
+        MongoCollection<Document> collection =                 database.getCollection("Students"); 
+ 
+        // ========================== 
+        // CREATE (Insert) 
+        // ========================== 
+        Document student = new Document("id", 101) 
+                .append("name", "John") 
+                .append("department", "CSE") 
+                .append("cgpa", 8.7); 
+ 
+        collection.insertOne(student); 
+        System.out.println("Document Inserted Successfully"); 
+ 
+        // ========================== 
+        // READ (Find) 
+        // ========================== 
+        System.out.println("\nStudent Records:"); 
+ 
+        FindIterable<Document> students = collection.find(); 
+ 
+        for (Document doc : students) { 
+            System.out.println(doc.toJson()); 
+        } 
+ 
+        // ========================== 
+        // UPDATE 
+        // ========================== 
+        collection.updateOne( 
+        Filters.eq("id", 2), 
+        Updates.set("name", "Bobby") 
+        ); 
+
+
+        System.out.println("\nDocument Updated Successfully"); 
+ 
+        // ========================== 
+        // READ Updated Record 
+        // ==========================         Document updatedStudent = 
+                collection.find(Filters.eq("id", 101)).first(); 
+ 
+        System.out.println("\nUpdated Record:"); 
+        System.out.println(updatedStudent.toJson()); 
+ 
+        // ========================== 
+        // DELETE 
+        // ==========================         collection.deleteOne(Filters.eq("id", 101)); 
+ 
+        System.out.println("\nDocument Deleted Successfully"); 
+ 
+        // Close connection 
+        mongoClient.close(); 
+    } 
+} 
+
+
+
+Create, Read, Update, Delete in MongoDB import com.mongodb.client.*; import com.mongodb.client.model.Filters; import com.mongodb.client.model.Updates; import org.bson.Document; 
+ 
+public class MongoCRUDExample { 
+ 
+    public static void main(String[] args) { 
+ 
+        // Connect to MongoDB 
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017"); 
+ 
+        // Access database 
+        MongoDatabase database = mongoClient.getDatabase("CollegeDB"); 
+ 
+        // Access collection 
+        MongoCollection<Document> collection =                 database.getCollection("Students"); 
+ 
+        // ========================== 
+        // CREATE (Insert) 
+        // ========================== 
+        Document student = new Document("id", 101) 
+                .append("name", "John") 
+                .append("department", "CSE") 
+                .append("cgpa", 8.7); 
+ 
+        collection.insertOne(student); 
+        System.out.println("Document Inserted Successfully"); 
+ 
+        // ========================== 
+        // READ (Find) 
+        // ========================== 
+        System.out.println("\nStudent Records:"); 
+ 
+        FindIterable<Document> students = collection.find(); 
+ 
+        for (Document doc : students) { 
+            System.out.println(doc.toJson()); 
+        } 
+ 
+        // ========================== 
+        // UPDATE 
+        // ========================== 
+        collection.updateOne( 
+                Filters.eq("id", 101), 
+                Updates.set("cgpa", 9.2) 
+        ); 
+ 
+        System.out.println("\nDocument Updated Successfully"); 
+ 
+        // ========================== 
+        // READ Updated Record 
+        // ==========================         Document updatedStudent = 
+                collection.find(Filters.eq("id", 101)).first(); 
+ 
+        System.out.println("\nUpdated Record:"); 
+        System.out.println(updatedStudent.toJson()); 
+ 
+        // ========================== 
+        // DELETE 
+        // ==========================         
+        
+        collection.deleteOne(Filters.eq("id", 2)); 
+ 
+        System.out.println("\nDocument Deleted Successfully"); 
+ 
+        // Close connection 
+        mongoClient.close(); 
+    } 
+} 
