@@ -1,0 +1,598 @@
+use vit
+switched to db vit
+db.products.drop()
+true
+db.products.insertMany([
+    { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+    { "_id" : 2, "name" : "xTablet", "price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12,"screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 5.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+ ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5
+  }
+}
+db.products.updateOne({ _id: 5 }, { $mul: { price: 1.1 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.products.updateOne({
+    _id: 1
+}, {
+    $mul: {
+        "storage.0": 2,
+        "storage.1": 2,
+        "storage.2": 2
+    }
+})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.products.updateMany({}, {
+    $mul: {
+        "spec.ram": 2
+    }
+})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+vit
+
+
+use vit
+switched to db vit
+db.products.drop()
+true
+db.products.insertMany([
+    { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+    { "_id" : 2, "name" : "xTablet", "price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 5.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+ ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5
+  }
+}
+db.products.updateOne({
+    _id: 1
+}, {
+    $unset: {
+        price: ""
+    }
+})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.products.updateMany({}, {
+    $unset: {
+        "spec.ram": ""
+    }
+})
+
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+db.products.updateMany({}, { $unset: { "storage.0": "" } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+db.products.updateMany({}, {
+    $unset: {
+        releaseDate: "",
+        spec: ""
+    }
+})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+vit
+
+
+use vit
+already on db vit
+db.products.drop()
+true
+db.products.insertMany([
+    { "_id" : 1, "nmea" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+    { "_id" : 2, "nmea" : "xTablet", "price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+    { "_id" : 3, "nmea" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    { "_id" : 4, "nmea" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    { "_id" : 5, "nmea" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 5.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+ ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5
+  }
+}
+db.products.updateMany({}, {
+    $rename: {
+        nmea: "name"
+    }
+})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+db.products.updateMany({}, {
+    $rename: {
+        "spec.screen": "spec.screenSize"
+    }
+})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+db.products.updateOne({
+ _id: 1
+}, 
+{
+    $rename: {
+        "spec.cpu": "cpu"
+    }
+})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.products.updateOne({
+    _id: 2
+}, {
+    $rename: {
+        "color": "storage"
+    }
+})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+vit
+Selection deleted
+
+
+use vit
+already on db vit
+db.products.drop()
+true
+db.products.insertMany([
+    { "_id" : 1, "nmea" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+    { "_id" : 2, "nmea" : "xTablet", "price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+    { "_id" : 3, "nmea" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    { "_id" : 4, "nmea" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    { "_id" : 5, "nmea" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 5.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+ ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5
+  }
+}
+db.products.updateMany(
+    {_id: 6 },
+    { $set: {price: 999} }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.products.updateMany(
+    { _id: 6 },
+    { $set: {price: 999} },
+    { upsert: true}
+)
+{
+  acknowledged: true,
+  insertedId: 6,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 1
+}
+vit
+Selection deleted
+
+
+db.products.drop()
+true
+db.products.insertMany([
+    { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+    { "_id" : 2, "name" : "xTablet", "price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+ ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5
+  }
+}
+db.products.deleteOne({ _id: 1 })
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.products.deleteOne({})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+
+db.products.insertMany([
+    { "_id" : 1, "name" : "xPhone", "price" : 799, "releaseDate": ISODate("2011-05-14"), "spec" : { "ram" : 4, "screen" : 6.5, "cpu" : 2.66 },"color":["white","black"],"storage":[64,128,256]},
+    { "_id" : 2, "name" : "xTablet", "price" : 899, "releaseDate": ISODate("2011-09-01") , "spec" : { "ram" : 16, "screen" : 9.5, "cpu" : 3.66 },"color":["white","black","purple"],"storage":[128,256,512]},
+    { "_id" : 3, "name" : "SmartTablet", "price" : 899, "releaseDate": ISODate("2015-01-14"), "spec" : { "ram" : 12, "screen" : 9.7, "cpu" : 3.66 },"color":["blue"],"storage":[16,64,128]},
+    { "_id" : 4, "name" : "SmartPad", "price" : 699, "releaseDate": ISODate("2020-05-14"),"spec" : { "ram" : 8, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256,1024]},
+    { "_id" : 5, "name" : "SmartPhone", "price" : 599,"releaseDate": ISODate("2022-09-14"), "spec" : { "ram" : 4, "screen" : 9.7, "cpu" : 1.66 },"color":["white","orange","gold","gray"],"storage":[128,256]}
+ ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5
+  }
+}
+
+
+db.products.deleteMany({ price: 899 })
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.products.deleteMany({})
+{
+  acknowledged: true,
+  deletedCount: 2
+}
+
+
+
+
+package mongo;
+
+import com.mongodb.client.*; 
+import com.mongodb.client.model.Filters; 
+import com.mongodb.client.model.Updates; 
+import org.bson.Document; 
+import java.util.Arrays;
+import java.util.List;
+ 
+public class MongoCRUDExample { 
+ 
+    public static void main(String[] args) { 
+ 
+        // Connect to MongoDB 
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017"); 
+ 
+        // Access database 
+        MongoDatabase database = mongoClient.getDatabase("CollegeDB"); 
+ 
+        // Access collection 
+        MongoCollection<Document> collection = database.getCollection("Students"); 
+ 
+        // ========================== 
+        // CREATE (Insert Many) 
+        // ========================== 
+        Document student1 = new Document("id", 101) 
+                .append("name", "John") 
+                .append("department", "CSE") 
+                .append("cgpa", 8.7); 
+
+        Document student2 = new Document("id", 102) 
+                .append("name", "Alice") 
+                .append("department", "CSE") 
+                .append("cgpa", 8.9); 
+
+        Document student3 = new Document("id", 103) 
+                .append("name", "Bob") 
+                .append("department", "ECE") 
+                .append("cgpa", 7.5); 
+
+        // Group them into a list
+        List<Document> studentList = Arrays.asList(student1, student2, student3);
+
+        // Insert multiple documents at once
+        collection.insertMany(studentList); 
+        System.out.println("Multiple Documents Inserted Successfully"); 
+ 
+        // ========================== 
+        // READ (Find All) 
+        // ========================== 
+        System.out.println("\nAll Student Records:"); 
+        FindIterable<Document> students = collection.find(); 
+ 
+        for (Document doc : students) { 
+            System.out.println(doc.toJson()); 
+        } 
+ 
+        // ========================== 
+        // UPDATE (Update Many - Inc) 
+        // ========================== 
+        // Update CGPA for ALL students in the "CSE" department
+        collection.updateMany( 
+                Filters.eq("department", "CSE"), 
+                Updates.inc("cgpa", 0.5) // Increases everyone's CGPA in CSE by 0.5
+        ); 
+        System.out.println("\nMultiple Documents Updated Successfully (CSE department bumped)"); 
+
+        // ========================== 
+        // UPDATE (Unset a Field) 
+        // ========================== 
+        // Remove the "cgpa" field entirely for Bob (id: 103)
+        collection.updateOne(
+                Filters.eq("id", 103),
+                Updates.unset("cgpa")
+        );
+        System.out.println("Successfully unset the 'cgpa' field for student ID 103");
+
+        // ========================== 
+        // UPDATE (Rename a Field) 
+        // ========================== 
+        // Rename the "department" field to "major" for ALL students
+        collection.updateMany(
+                new Document(), // An empty document acts as a filter that matches everything
+                Updates.rename("department", "major")
+        );
+        System.out.println("Successfully renamed the 'department' field to 'major' for all records");
+ 
+        // ========================== 
+        // READ Updated Records 
+        // ========================== 
+        System.out.println("\nFinal Records (Notice the missing CGPA for Bob and 'major' instead of 'department'):"); 
+        FindIterable<Document> finalStudents = collection.find(); 
+ 
+        for (Document doc : finalStudents) { 
+            System.out.println(doc.toJson()); 
+        }
+ 
+        // ========================== 
+        // DELETE (Delete Many) 
+        // ========================== 
+        // Delete all students who belong to the "CSE" major 
+        // Note: We use "major" instead of "department" here because we just renamed it!
+        collection.deleteMany(Filters.eq("major", "CSE")); 
+ 
+        System.out.println("\nMultiple Documents Deleted Successfully"); 
+ 
+        // Close connection 
+        mongoClient.close(); 
+    } 
+}
+OUTPUT-
+Multiple Documents Inserted Successfully
+All Student Records:
+{"_id":{"$oid":"..."},"id":101,"name":"John","department":"CSE","cgpa":8.7}
+{"_id":{"$oid":"..."},"id":102,"name":"Alice","department":"CSE","cgpa":8.9}
+{"_id":{"$oid":"..."},"id":103,"name":"Bob","department":"ECE","cgpa":7.5}
+Multiple Documents Updated Successfully (CSE department bumped)
+
+Successfully unset the 'cgpa' field for student ID 103
+Successfully renamed the 'department' field to 'major' for all records
+
+Final Records (Notice the missing CGPA for Bob and 'major' instead of 'department'):
+
+{"_id":{"$oid":"..."},"id":101,"name":"John","major":"CSE","cgpa":9.2}
+{"_id":{"$oid":"..."},"id":102,"name":"Alice","major":"CSE","cgpa":9.4}
+{"_id":{"$oid":"..."},"id":103,"name":"Bob","major":"ECE"}
+
+Multiple Documents Deleted Successfully
+
+{"_id":{"$oid":"..."},"id":103,"name":"Bob","major":"ECE"}Multiple Documents Inserted Successfully
+
+
+
+
+package mongo;
+
+import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import org.bson.Document;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class MongoCRUDExample {
+
+    public static void main(String[] args) {
+
+        // Connect to MongoDB
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+
+        // Access database
+        MongoDatabase database = mongoClient.getDatabase("CollegeDB");
+
+        // Access collection
+        MongoCollection<Document> collection = database.getCollection("Students");
+
+        // ==========================
+        // CREATE (Insert Many)
+        // ==========================
+        Document student1 = new Document("id", 101)
+                .append("name", "John")
+                .append("department", "CSE")
+                .append("cgpa", 8.7);
+
+        Document student2 = new Document("id", 102)
+                .append("name", "Alice")
+                .append("department", "CSE")
+                .append("cgpa", 8.9);
+
+        Document student3 = new Document("id", 103)
+                .append("name", "Bob")
+                .append("department", "ECE")
+                .append("cgpa", 7.5);
+
+        List<Document> studentList = Arrays.asList(student1, student2, student3);
+
+        collection.insertMany(studentList);
+        System.out.println("Multiple Documents Inserted Successfully");
+
+        // ==========================
+        // READ (Find All)
+        // ==========================
+        System.out.println("\nAll Student Records:");
+
+        FindIterable<Document> students = collection.find();
+
+        for (Document doc : students) {
+            System.out.println(doc.toJson());
+        }
+
+        // ==========================
+        // UPDATE (Increment CGPA)
+        // ==========================
+        collection.updateMany(
+                Filters.eq("department", "CSE"),
+                Updates.inc("cgpa", 0.5)
+        );
+
+        System.out.println("\nCSE Students' CGPA Updated Successfully");
+
+        // ==========================
+        // UPDATE (UNSET Field)
+        // ==========================
+        collection.updateOne(
+                Filters.eq("id", 103),
+                Updates.unset("cgpa")
+        );
+
+        System.out.println("CGPA field removed for student ID 103");
+
+        // ==========================
+        // UPDATE (Rename Field)
+        // ==========================
+        collection.updateMany(
+                new Document(),
+                Updates.rename("department", "major")
+        );
+
+        System.out.println("Field 'department' renamed to 'major'");
+
+        // ==========================
+        // READ Updated Records
+        // ==========================
+        System.out.println("\nFinal Records:");
+
+        FindIterable<Document> finalStudents = collection.find();
+
+        for (Document doc : finalStudents) {
+            System.out.println(doc.toJson());
+        }
+
+        // ==========================
+        // DELETE (Delete Many)
+        // ==========================
+        collection.deleteMany(
+                Filters.eq("major", "CSE")
+        );
+
+        System.out.println("\nCSE Students Deleted Successfully");
+
+        // Close connection
+        mongoClient.close();
+    }
+}
+OUTPUT-
+Multiple Documents Inserted Successfully
+
+All Student Records:
+
+{"_id":{"$oid":"..."},"id":101,"name":"John","department":"CSE","cgpa":8.7}
+{"_id":{"$oid":"..."},"id":102,"name":"Alice","department":"CSE","cgpa":8.9}
+{"_id":{"$oid":"..."},"id":103,"name":"Bob","department":"ECE","cgpa":7.5}
+
+CSE Students' CGPA Updated Successfully
+Field 'department' renamed to 'major'
+
+Final Records:
+
+{"_id":{"$oid":"..."},"id":101,"name":"John","major":"CSE","cgpa":9.2}
+{"_id":{"$oid":"..."},"id":102,"name":"Alice","major":"CSE","cgpa":9.4}
+{"_id":{"$oid":"..."},"id":103,"name":"Bob","major":"ECE"}
+
+CSE Students Deleted Successfully
+
+{"_id":{"$oid":"..."},"id":103,"name":"Bob","major":"ECE"}
+
+
+
+
+
+
+
+
+
+
